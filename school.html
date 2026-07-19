@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Via Bag — شنط المدارس</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#071d3a;--navy2:#0d2d5a;--beige:#bcab95;--pale:#f5f0ea;--mid:#4a4a5a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--pale);color:#1a1a2e}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,29,58,.96);backdrop-filter:blur(12px);padding:12px 40px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(188,171,149,.2)}
+nav img{height:46px}
+.back-link{position:fixed;top:80px;right:20px;z-index:99;background:#fff;color:var(--navy);padding:8px 18px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(7,29,58,.12)}
+.hero{background:linear-gradient(160deg,var(--navy),var(--navy2));padding:120px 20px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-25%;left:50%;transform:translateX(-50%);width:650px;height:430px;background:radial-gradient(ellipse,rgba(188,171,149,.14),transparent 70%)}
+.tag{font-size:11px;letter-spacing:4px;color:var(--beige);text-transform:uppercase;display:block;margin-bottom:12px;position:relative}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,50px);font-weight:900;color:#fff;position:relative}
+.hero h1 span{color:var(--beige)}
+.hero p{color:rgba(255,255,255,.62);font-size:15px;margin-top:12px;position:relative}
+.wrap{max-width:1080px;margin:0 auto;padding:60px 24px 80px}
+.sect-title{text-align:center;margin-bottom:44px}
+.sect-title h2{font-family:'Playfair Display',serif;font-size:29px;color:var(--navy);margin-bottom:8px}
+.sect-title p{color:var(--navy);font-size:27px;font-weight:700;font-family:'Playfair Display',serif}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.bcard{background:#fff;border-radius:22px;padding:34px 26px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:all .35s;border:1px solid rgba(188,171,149,.18);display:flex;flex-direction:column;align-items:center;text-align:center;min-height:270px;justify-content:center}
+.bcard:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(7,29,58,.16);border-color:var(--beige)}
+.bcard:hover .barrow{opacity:1;transform:translateX(0)}
+.bcard::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:var(--beige);transition:height .35s}
+.bcard:hover::before{height:100%}
+.blogo{height:96px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.blogo img{max-height:96px;max-width:190px;object-fit:contain}
+.bname{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.bdesc{color:var(--mid);font-size:13px;line-height:1.6}
+.barrow{position:absolute;bottom:18px;color:var(--beige);font-size:21px;opacity:0;transform:translateX(8px);transition:all .3s}
+.avail{margin-top:40px;text-align:center;color:var(--mid);font-size:13px;background:#fff;border-radius:14px;padding:16px;border:1px dashed rgba(188,171,149,.5)}
+footer{background:var(--navy);padding:44px 20px;text-align:center;color:rgba(255,255,255,.5);font-size:13px}
+footer .wa{display:inline-block;margin-top:12px;background:#25D366;color:#fff;padding:11px 26px;border-radius:28px;text-decoration:none;font-weight:600;font-size:14px}
+@media(max-width:768px){nav{padding:12px 20px}.hero{padding:105px 18px 46px}.wrap{padding:44px 18px 60px}.back-link{top:72px;right:12px}}
+</style></head><body>
+<nav><img src="images/logo_light.png" alt="Via Bag"></nav>
+<a href="index.html" class="back-link">→ كل الأقسام</a>
+<header class="hero">
+  <span class="tag">مجموعة المدارس</span>
+  <h1>شنط <span>المدارس</span></h1>
+  <p>اختاري الماركة اللي تناسبك</p>
+</header>
+<div class="wrap">
+  <div class="sect-title"><p>أفضل الماركات المميزة</p></div>
+  <div class="bgrid">
+    <a href="school_threem.html" class="bcard">
+      <div class="blogo"><img src="images/brands/threem.jpg" alt="Three M"></div>
+      <div class="bname">Three M</div>
+      <div class="bdesc">تصاميم مميزة وجودة عالية</div>
+      <div class="barrow">→</div>
+    </a>
+    <a href="school_momolly.html" class="bcard">
+      <div class="blogo"><img src="images/brands/momolly.jpg" alt="Momolly"></div>
+      <div class="bname">Momolly</div>
+      <div class="bdesc">تصاميم عصرية وأطقم كاملة</div>
+      <div class="barrow">→</div>
+    </a>
+    <a href="school_trendone.html" class="bcard">
+      <div class="blogo"><img src="images/brands/trendone.jpg" alt="Trend One"></div>
+      <div class="bname">Trend One</div>
+      <div class="bdesc">ستايل وعملية لكل المراحل</div>
+      <div class="barrow">→</div>
+    </a>
+  </div>
+  <div class="avail">✨ كل الماركات متوفرة لدى Via Bag · توصيل لجميع محافظات مصر</div>
+</div>
+<footer>© 2025 Via Bag — Carry Your World<br>
+<a class="wa" href="https://wa.me/201223311833" target="_blank">تواصلي معنا واتساب 💬</a></footer>
+</body></html>
