@@ -83,6 +83,10 @@
     <div class="vb-head"><h3>سلة التسوق 🛒</h3><button class="vb-x" id="vbX">✕</button></div>
     <div class="vb-body" id="vbBody"></div>
     <div class="vb-foot" id="vbFoot" style="display:none">
+      <div id="vbCoupon" style="display:none;background:#eaf7ee;border:1px solid #b6e0c2;border-radius:9px;padding:9px 13px;margin-bottom:11px;font-size:13px;color:#1a7d3c;font-weight:600;display:flex;align-items:center;justify-content:space-between">
+        <span id="vbCouponTxt"></span>
+        <button onclick="vbClearCoupon()" style="background:none;border:none;color:#d4453b;cursor:pointer;font-size:12px">إزالة</button>
+      </div>
       <div class="vb-total"><span>الإجمالي</span><b id="vbTotal">0 ج</b></div>
       <input class="vb-inp" id="vbName" placeholder="اسمك">
       <input class="vb-inp" id="vbPhone" type="tel" placeholder="رقم الواتساب">
@@ -167,6 +171,26 @@
     foot.style.display = 'block';
     document.getElementById('vbTotal').textContent =
       cart.reduce((s, x) => s + x.price * x.qty, 0) + ' ج';
+    const cp = document.getElementById('vbCoupon');
+    if (cp) {
+      if (coupon) { cp.style.display='flex'; document.getElementById('vbCouponTxt').textContent = couponLine(); }
+      else { cp.style.display='none'; }
+    }
+  }
+
+
+  /* ---------- كوبون عجلة الحظ ---------- */
+  let coupon = null;
+  try { coupon = JSON.parse(localStorage.getItem('viabag_prize_v1')); } catch(e){}
+  window.vbSetCoupon = function(p){ coupon = p; save(cart); draw(); };
+  window.vbClearCoupon = function(){
+    coupon = null;
+    try { localStorage.removeItem('viabag_prize_v1'); } catch(e){}
+    draw();
+  };
+  function couponLine(){
+    if(!coupon) return '';
+    return `🎁 ${coupon.label} — كود: ${coupon.code}`;
   }
 
   function checkout() {
@@ -180,7 +204,9 @@
       if (x.variant) m += `   ${x.variant}\n`;
       m += `   الكمية: ${x.qty} × ${x.price} ج = ${x.qty * x.price} ج\n\n`;
     });
-    m += `الإجمالي: ${cart.reduce((s, x) => s + x.price * x.qty, 0)} ج\n\n`;
+    m += `الإجمالي: ${cart.reduce((s, x) => s + x.price * x.qty, 0)} ج\n`;
+    if (coupon) m += `\n🎁 كوبون: ${coupon.label} (${coupon.code})\n`;
+    m += `\n`;
     m += `👤 الاسم: ${n}\n📱 الواتساب: ${p}\n📍 المحافظة: ${c || 'لم تحدد'}`;
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(m), '_blank');
   }
