@@ -144,9 +144,13 @@
     spinning = true;
     document.getElementById('vbwSpin').disabled = true;
     const idx = Math.floor(Math.random() * n);
-    // المؤشر فوق (0deg). نخلي منتصف الجزء المختار يوصل لأعلى.
-    const target = 360 * 5 + (360 - (idx * seg + seg / 2));
-    currentRot += target;
+    // conic-gradient يبدأ من أعلى (12) باتجاه عقارب الساعة.
+    // منتصف الجزء idx زاويته (idx*seg + seg/2) من أعلى باتجاه العقارب.
+    // عشان يوصل تحت المؤشر (أعلى)، نلف الدولاب عكس العقارب بنفس الزاوية.
+    const mid = idx * seg + seg / 2;
+    const base = currentRot - (currentRot % 360);       // ابدئي من دورة كاملة
+    const target = base + 360 * 5 + (360 - mid);
+    currentRot = target;
     const w = document.getElementById('vbwWheel');
     w.style.transform = `rotate(${currentRot}deg)`;
     setTimeout(() => {

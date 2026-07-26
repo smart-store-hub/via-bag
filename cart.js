@@ -169,12 +169,19 @@
         </div>
       </div>`).join('');
     foot.style.display = 'block';
-    document.getElementById('vbTotal').textContent =
-      cart.reduce((s, x) => s + x.price * x.qty, 0) + ' ج';
+    const sub = subtotal();
+    const d = discountAmount();
+    const finalT = sub - d.amount;
+    document.getElementById('vbTotal').textContent = finalT + ' ج';
     const cp = document.getElementById('vbCoupon');
     if (cp) {
-      if (coupon) { cp.style.display='flex'; document.getElementById('vbCouponTxt').textContent = couponLine(); }
-      else { cp.style.display='none'; }
+      if (coupon) {
+        cp.style.display='flex';
+        let txt = '🎁 ' + d.label;
+        if (d.amount>0) txt += ' (−'+d.amount+' ج)';
+        if (d.ship) txt += ' 🚚';
+        document.getElementById('vbCouponTxt').textContent = txt;
+      } else { cp.style.display='none'; }
     }
   }
 
@@ -193,6 +200,28 @@
     return `🎁 ${coupon.label} — كود: ${coupon.code}`;
   }
 
+
+  /* ---------- حساب الخصم ---------- */
+  function subtotal(){ return cart.reduce((s,x)=>s+x.price*x.qty,0); }
+  function discountAmount(){
+    if(!coupon) return {amount:0, ship:false, label:''};
+    const sub=subtotal();
+    switch(coupon.code){
+      case 'VIA5':     return {amount:Math.round(sub*0.05), ship:false, label:'خصم 5%'};
+      case 'VIA7':     return {amount:Math.round(sub*0.07), ship:false, label:'خصم 7%'};
+      case 'VIA100':   return {amount:Math.min(100,sub),    ship:false, label:'خصم 100 ج'};
+      case 'FREESHIP': return {amount:0, ship:true,  label:'شحن مجاني'};
+      case 'SECOND10': {
+        // خصم 10% على أرخص قطعة تانية (لو فيه قطعتين+)
+        const items=[]; cart.forEach(x=>{for(let k=0;k<x.qty;k++)items.push(x.price);});
+        if(items.length<2) return {amount:0, ship:false, label:'خصم 10% ع القطعة التانية (تحتاجين قطعتين)'};
+        items.sort((a,b)=>a-b);
+        return {amount:Math.round(items[items.length-2]*0.10), ship:false, label:'خصم 10% ع القطعة التانية'};
+      }
+      default: return {amount:0, ship:false, label:''};
+    }
+  }
+
   function checkout() {
     const n = document.getElementById('vbName').value.trim();
     const p = document.getElementById('vbPhone').value.trim();
@@ -204,8 +233,15 @@
       if (x.variant) m += `   ${x.variant}\n`;
       m += `   الكمية: ${x.qty} × ${x.price} ج = ${x.qty * x.price} ج\n\n`;
     });
-    m += `الإجمالي: ${cart.reduce((s, x) => s + x.price * x.qty, 0)} ج\n`;
-    if (coupon) m += `\n🎁 كوبون: ${coupon.label} (${coupon.code})\n`;
+    const sub = subtotal();
+    const d = discountAmount();
+    m += `الإجمالي قبل الخصم: ${sub} ج\n`;
+    if (coupon) {
+      m += `🎁 كوبون: ${coupon.label} (${coupon.code})\n`;
+      if (d.amount>0) m += `الخصم: −${d.amount} ج\n`;
+      if (d.ship) m += `🚚 شحن مجاني\n`;
+      m += `الإجمالي بعد الخصم: ${sub - d.amount} ج\n`;
+    }
     m += `\n`;
     m += `👤 الاسم: ${n}\n📱 الواتساب: ${p}\n📍 المحافظة: ${c || 'لم تحدد'}`;
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(m), '_blank');
