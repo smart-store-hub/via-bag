@@ -75,14 +75,16 @@
   }
 
   function labelsSVG() {
-    // نص كل جزء
+    // conic-gradient يبدأ من أعلى (12) باتجاه العقارب. نضع النص في منتصف كل جزء
+    // بنفس النظام: نلف من المحور لأعلى ثم للخارج.
     let els = '';
     for (let i = 0; i < n; i++) {
-      const ang = i * seg + seg / 2;
-      els += `<div style="position:absolute;top:50%;left:50%;transform-origin:0 0;
-        transform:rotate(${ang}deg) translate(58px,-8px);width:80px;color:#fff;font-size:10px;
-        font-weight:700;text-align:center;font-family:'Cairo',sans-serif;line-height:1.15;
-        pointer-events:none">${PRIZES[i].label}</div>`;
+      const ang = i * seg + seg / 2; // من أعلى، باتجاه العقارب
+      els += `<div style="position:absolute;top:50%;left:50%;
+        transform:translate(-50%,-50%) rotate(${ang}deg) translateY(-92px) rotate(90deg);
+        color:#fff;font-size:10px;font-weight:700;text-align:center;
+        font-family:'Cairo',sans-serif;line-height:1.15;pointer-events:none;
+        width:74px;margin-left:-37px;margin-top:-6px">${PRIZES[i].label}</div>`;
     }
     return els;
   }
@@ -143,17 +145,23 @@
     if (spinning) return;
     spinning = true;
     document.getElementById('vbwSpin').disabled = true;
-    const idx = Math.floor(Math.random() * n);
-    // conic-gradient يبدأ من أعلى (12) باتجاه عقارب الساعة.
-    // منتصف الجزء idx زاويته (idx*seg + seg/2) من أعلى باتجاه العقارب.
-    // عشان يوصل تحت المؤشر (أعلى)، نلف الدولاب عكس العقارب بنفس الزاوية.
-    const mid = idx * seg + seg / 2;
-    const base = currentRot - (currentRot % 360);       // ابدئي من دورة كاملة
-    const target = base + 360 * 5 + (360 - mid);
-    currentRot = target;
+
+    // لف عشوائي (5 لفات كاملة + زاوية عشوائية)
+    const extra = Math.floor(Math.random() * 360);
+    const base = currentRot - (currentRot % 360);
+    currentRot = base + 360 * 5 + extra;
+
     const w = document.getElementById('vbwWheel');
     w.style.transform = `rotate(${currentRot}deg)`;
+
     setTimeout(() => {
+      // المؤشر مصدر الحقيقة: نحسب أي جزء استقر تحته فعلياً.
+      // conic-gradient يبدأ من الأعلى باتجاه العقارب. بعد لف الدولاب بمقدار R،
+      // الجزء الذي أصبح تحت المؤشر (الأعلى) هو الذي زاويته الأصلية = (360 - R%360) % 360.
+      const rot = currentRot % 360;
+      const angleAtTop = (360 - rot) % 360;
+      const idx = Math.floor(angleAtTop / seg) % n;
+
       const p = PRIZES[idx];
       setPrize(p);
       document.getElementById('vbwPrizeLbl').textContent = '🎉 مبروك! ' + p.label;

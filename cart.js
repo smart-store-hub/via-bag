@@ -130,14 +130,17 @@
     save(cart); draw(); say('تمت الإضافة للسلة ✓');
   };
 
-  function chg(k, d) {
-    const it = cart.find(x => x.key === k); if (!it) return;
-    it.qty += d;
-    if (it.qty < 1) cart = cart.filter(x => x.key !== k);
+  function chgByIndex(i, d) {
+    if (!cart[i]) return;
+    cart[i].qty += d;
+    if (cart[i].qty < 1) cart.splice(i, 1);
     save(cart); draw();
   }
-  function del(k) { cart = cart.filter(x => x.key !== k); save(cart); draw(); }
-  window.vbChg = chg; window.vbDel = del;
+  function delByIndex(i) {
+    if (!cart[i]) return;
+    cart.splice(i, 1); save(cart); draw();
+  }
+  window.vbChgByIndex = chgByIndex; window.vbDelByIndex = delByIndex;
 
   function draw() {
     const c = document.getElementById('vbCount');
@@ -153,7 +156,7 @@
       foot.style.display = 'none';
       return;
     }
-    body.innerHTML = cart.map(x => `
+    body.innerHTML = cart.map((x, i) => `
       <div class="vb-item">
         ${x.img ? `<img src="${x.img}" alt="${x.name}">` : ''}
         <div class="vb-i-info">
@@ -161,13 +164,22 @@
           <div class="vb-i-meta">${x.code}${x.variant ? ' · ' + x.variant : ''}</div>
           <div class="vb-i-price">${x.price} ج</div>
           <div class="vb-qty">
-            <button class="vb-qb" onclick="vbChg('${x.key}',-1)">−</button>
+            <button class="vb-qb" data-act="dec" data-i="${i}">−</button>
             <span class="vb-qn">${x.qty}</span>
-            <button class="vb-qb" onclick="vbChg('${x.key}',1)">+</button>
+            <button class="vb-qb" data-act="inc" data-i="${i}">+</button>
           </div>
-          <button class="vb-del" onclick="vbDel('${x.key}')">حذف</button>
+          <button class="vb-del" data-act="del" data-i="${i}">حذف</button>
         </div>
       </div>`).join('');
+    // event delegation (يتحمّل المفاتيح اللي فيها رموز)
+    body.querySelectorAll('[data-act]').forEach(b=>{
+      b.onclick=()=>{
+        const i=+b.getAttribute('data-i'), act=b.getAttribute('data-act');
+        if(act==='inc') chgByIndex(i,1);
+        else if(act==='dec') chgByIndex(i,-1);
+        else if(act==='del') delByIndex(i);
+      };
+    });
     foot.style.display = 'block';
     const sub = subtotal();
     const d = discountAmount();
