@@ -9,7 +9,7 @@
     { label: 'شحن مجاني',              code: 'FREESHIP', color: '#bcab95' },
     { label: 'خصم 100 جنيه',           code: 'VIA100',   color: '#071d3a' },
     { label: 'خصم 10% ع القطعة التانية', code: 'SECOND10', color: '#9a845c' },
-    { label: 'خصم 7%',                 code: 'VIA7',     color: '#0d2d5a' },
+    { label: 'خصم 7%',                 code: 'VIA7',     color: '#c0392b' },
   ];
 
   function getPrize() {
@@ -75,16 +75,17 @@
   }
 
   function labelsSVG() {
-    // conic-gradient يبدأ من أعلى (12) باتجاه العقارب. نضع النص في منتصف كل جزء
-    // بنفس النظام: نلف من المحور لأعلى ثم للخارج.
+    // نص كل جزء في منتصفه، متجه من المركز للخارج
     let els = '';
     for (let i = 0; i < n; i++) {
-      const ang = i * seg + seg / 2; // من أعلى، باتجاه العقارب
-      els += `<div style="position:absolute;top:50%;left:50%;
-        transform:translate(-50%,-50%) rotate(${ang}deg) translateY(-92px) rotate(90deg);
-        color:#fff;font-size:10px;font-weight:700;text-align:center;
-        font-family:'Cairo',sans-serif;line-height:1.15;pointer-events:none;
-        width:74px;margin-left:-37px;margin-top:-6px">${PRIZES[i].label}</div>`;
+      const ang = i * seg + seg / 2; // منتصف الجزء من أعلى باتجاه العقارب
+      els += `<div style="position:absolute;top:50%;left:50%;height:0;width:0;
+        transform:rotate(${ang}deg);pointer-events:none">
+        <div style="position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
+          width:96px;text-align:center;color:#fff;font-size:11px;font-weight:700;
+          font-family:'Cairo',sans-serif;line-height:1.2;
+          text-shadow:0 1px 2px rgba(0,0,0,.35)">${PRIZES[i].label}</div>
+      </div>`;
     }
     return els;
   }
