@@ -142,6 +142,43 @@
   }
   window.vbChgByIndex = chgByIndex; window.vbDelByIndex = delByIndex;
 
+  /* ---------- كوبون عجلة الحظ ---------- */
+  let coupon = null;
+  try { coupon = JSON.parse(localStorage.getItem('viabag_prize_v1')); } catch(e){}
+  window.vbSetCoupon = function(p){ coupon = p; save(cart); draw(); };
+  window.vbClearCoupon = function(){
+    coupon = null;
+    try { localStorage.removeItem('viabag_prize_v1'); } catch(e){}
+    draw();
+  };
+  function couponLine(){
+    if(!coupon) return '';
+    return `🎁 ${coupon.label} — كود: ${coupon.code}`;
+  }
+
+
+  /* ---------- حساب الخصم ---------- */
+  function subtotal(){ return cart.reduce((s,x)=>s+x.price*x.qty,0); }
+  function discountAmount(){
+    if(!coupon) return {amount:0, ship:false, label:''};
+    const sub=subtotal();
+    switch(coupon.code){
+      case 'VIA5':     return {amount:Math.round(sub*0.05), ship:false, label:'خصم 5%'};
+      case 'VIA7':     return {amount:Math.round(sub*0.07), ship:false, label:'خصم 7%'};
+      case 'VIA100':   return {amount:Math.min(100,sub),    ship:false, label:'خصم 100 ج'};
+      case 'FREESHIP': return {amount:0, ship:true,  label:'شحن مجاني'};
+      case 'SECOND10': {
+        // خصم 10% على أرخص قطعة تانية (لو فيه قطعتين+)
+        const items=[]; cart.forEach(x=>{for(let k=0;k<x.qty;k++)items.push(x.price);});
+        if(items.length<2) return {amount:0, ship:false, label:'خصم 10% ع القطعة التانية (تحتاجين قطعتين)'};
+        items.sort((a,b)=>a-b);
+        return {amount:Math.round(items[items.length-2]*0.10), ship:false, label:'خصم 10% ع القطعة التانية'};
+      }
+      default: return {amount:0, ship:false, label:''};
+    }
+  }
+
+
   function draw() {
     const c = document.getElementById('vbCount');
     const n = cart.reduce((s, x) => s + x.qty, 0);
@@ -197,42 +234,6 @@
     }
   }
 
-
-  /* ---------- كوبون عجلة الحظ ---------- */
-  let coupon = null;
-  try { coupon = JSON.parse(localStorage.getItem('viabag_prize_v1')); } catch(e){}
-  window.vbSetCoupon = function(p){ coupon = p; save(cart); draw(); };
-  window.vbClearCoupon = function(){
-    coupon = null;
-    try { localStorage.removeItem('viabag_prize_v1'); } catch(e){}
-    draw();
-  };
-  function couponLine(){
-    if(!coupon) return '';
-    return `🎁 ${coupon.label} — كود: ${coupon.code}`;
-  }
-
-
-  /* ---------- حساب الخصم ---------- */
-  function subtotal(){ return cart.reduce((s,x)=>s+x.price*x.qty,0); }
-  function discountAmount(){
-    if(!coupon) return {amount:0, ship:false, label:''};
-    const sub=subtotal();
-    switch(coupon.code){
-      case 'VIA5':     return {amount:Math.round(sub*0.05), ship:false, label:'خصم 5%'};
-      case 'VIA7':     return {amount:Math.round(sub*0.07), ship:false, label:'خصم 7%'};
-      case 'VIA100':   return {amount:Math.min(100,sub),    ship:false, label:'خصم 100 ج'};
-      case 'FREESHIP': return {amount:0, ship:true,  label:'شحن مجاني'};
-      case 'SECOND10': {
-        // خصم 10% على أرخص قطعة تانية (لو فيه قطعتين+)
-        const items=[]; cart.forEach(x=>{for(let k=0;k<x.qty;k++)items.push(x.price);});
-        if(items.length<2) return {amount:0, ship:false, label:'خصم 10% ع القطعة التانية (تحتاجين قطعتين)'};
-        items.sort((a,b)=>a-b);
-        return {amount:Math.round(items[items.length-2]*0.10), ship:false, label:'خصم 10% ع القطعة التانية'};
-      }
-      default: return {amount:0, ship:false, label:''};
-    }
-  }
 
   function checkout() {
     const n = document.getElementById('vbName').value.trim();

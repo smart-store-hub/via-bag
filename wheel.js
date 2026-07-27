@@ -99,8 +99,8 @@
       <div class="vbw-wrap">
         <div class="vbw-pointer"></div>
         <div class="vbw-wheel" id="vbwWheel" style="background:${wheelGradient()}">
+          ${labelsSVG()}
         </div>
-        <div style="position:absolute;inset:0" id="vbwLabels">${labelsSVG()}</div>
         <div class="vbw-center">🎁</div>
       </div>
       <button class="vbw-btn" id="vbwSpin">لِفّي العجلة</button>
