@@ -75,17 +75,21 @@
   }
 
   function labelsSVG() {
-    // نص كل جزء في منتصفه، متجه من المركز للخارج
+    // نص كل جزء في منتصفه، على بعد مسافة كويسة من المركز عشان ميتزاحمش
     let els = '';
+    const cx = 140, cy = 140, r = 92; // نصف قطر العجلة 140، والنص عند 92 منه
     for (let i = 0; i < n; i++) {
-      const ang = i * seg + seg / 2; // منتصف الجزء من أعلى باتجاه العقارب
-      els += `<div style="position:absolute;top:50%;left:50%;height:0;width:0;
-        transform:rotate(${ang}deg);pointer-events:none">
-        <div style="position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
-          width:96px;text-align:center;color:#fff;font-size:11px;font-weight:700;
-          font-family:'Cairo',sans-serif;line-height:1.2;
-          text-shadow:0 1px 2px rgba(0,0,0,.35)">${PRIZES[i].label}</div>
-      </div>`;
+      const ang = i * seg + seg / 2; // منتصف الجزء، من أعلى باتجاه العقارب
+      const rad = ang * Math.PI / 180;
+      const x = cx + r * Math.sin(rad);
+      const y = cy - r * Math.cos(rad);
+      // في النص السفلي من العجلة النص بيبقى مقلوب، فبنضيف 180 درجة تصحيح
+      const rot = (ang > 90 && ang < 270) ? ang + 180 : ang;
+      els += `<div style="position:absolute;left:${x}px;top:${y}px;width:80px;
+        transform:translate(-50%,-50%) rotate(${rot}deg);pointer-events:none;
+        text-align:center;color:#fff;font-size:10.5px;font-weight:700;
+        font-family:'Cairo',sans-serif;line-height:1.25;
+        text-shadow:0 1px 2px rgba(0,0,0,.35)">${PRIZES[i].label}</div>`;
     }
     return els;
   }
