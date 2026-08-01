@@ -39,7 +39,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,29,58,.96);bac
 .section-title{text-align:center;margin-bottom:50px}
 .section-title h2{font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);margin-bottom:8px}
 .section-title p{color:var(--text-mid);font-size:15px}
-.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .cat-card{background:#fff;border-radius:20px;padding:36px 28px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:all .35s;border:1px solid rgba(188,171,149,.15);display:flex;flex-direction:column;align-items:center;text-align:center;min-height:200px;justify-content:center}
 .cat-card.available:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(7,29,58,.16);border-color:var(--beige)}
 .cat-card.available:hover .cat-arrow{opacity:1;transform:translateX(0)}
@@ -52,7 +52,8 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,29,58,.96);bac
 .cat-card.available:hover::before{height:100%}
 footer{background:var(--navy);padding:50px 40px;text-align:center;color:rgba(255,255,255,.5);font-size:14px}
 footer .wa{display:inline-block;margin-top:14px;background:#25D366;color:#fff;padding:12px 28px;border-radius:30px;text-decoration:none;font-weight:600;font-size:14px}
-@media(max-width:768px){nav{padding:12px 20px}.hero{padding:110px 20px 50px}.cats-section{padding:50px 20px 60px}}
+@media(max-width:768px){nav{padding:12px 20px}.hero{padding:110px 20px 50px}.cats-section{padding:50px 20px 60px}.cats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cats-grid{grid-template-columns:1fr}}
 .footer-soc{margin-top:16px;display:flex;justify-content:center;gap:18px}.footer-soc a{color:rgba(255,255,255,.65);transition:.2s;display:inline-flex}.footer-soc a:hover{color:#bcab95}
 </style></head><body>
 <nav><img class="logo-img" src="images/logo_light.png" alt="Via Bag"></nav>
@@ -65,23 +66,23 @@ footer .wa{display:inline-block;margin-top:14px;background:#25D366;color:#fff;pa
 <section class="cats-section">
   <div class="section-title"><h2>أقسامنا</h2><p>اختاري القسم اللي يناسبك</p></div>
   <div class="cats-grid">
-    <a href="lady.html" class="cat-card available" >
-      <div class="cat-emoji">👜</div><div class="cat-name">شنط حريمي</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="kids.html" class="cat-card available" >
-      <div class="cat-emoji">🧸</div><div class="cat-name">شنط أطفال</div>
-      <div class="cat-arrow">→</div></a>
     <a href="school.html" class="cat-card available" >
       <div class="cat-emoji">🎒</div><div class="cat-name">شنط مدارس</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="baby.html" class="cat-card available" >
-      <div class="cat-emoji">🍼</div><div class="cat-name">شنط بيبي</div>
       <div class="cat-arrow">→</div></a>
     <a href="laptop.html" class="cat-card available" >
       <div class="cat-emoji">💻</div><div class="cat-name">شنط لاب توب</div>
       <div class="cat-arrow">→</div></a>
+    <a href="baby.html" class="cat-card available" >
+      <div class="cat-emoji">🍼</div><div class="cat-name">شنط بيبي</div>
+      <div class="cat-arrow">→</div></a>
+    <a href="lady.html" class="cat-card available" >
+      <div class="cat-emoji">👜</div><div class="cat-name">شنط حريمي</div>
+      <div class="cat-arrow">→</div></a>
     <a href="luxury.html" class="cat-card available">
       <div class="cat-emoji">✨</div><div class="cat-name">شنط فاخرة</div>
+      <div class="cat-arrow">→</div></a>
+    <a href="kids.html" class="cat-card available" >
+      <div class="cat-emoji">🧸</div><div class="cat-name">شنط أطفال</div>
       <div class="cat-arrow">→</div></a>
   </div>
 </section>
