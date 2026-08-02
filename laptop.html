@@ -121,7 +121,7 @@ footer{background:var(--navy);padding:40px;text-align:center;color:rgba(255,255,
 </div>
 <div class="grid" id="grid"></div></div>
 <div class="lightbox" id="lb"><button class="lbx" onclick="closeLb()">✕</button><button class="lbn lbp" onclick="lbNav(-1)">›</button><img id="lbImg" src=""><button class="lbn lbnx" onclick="lbNav(1)">‹</button></div>
-<div class="mo" id="mo"><div class="modal"><button class="mc" onclick="closeMo()">✕</button><h3>اطلبي الآن</h3><p class="pref" id="pref"></p>
+<div class="mo" id="mo"><div class="modal"><button class="mc" onclick="closeMo()">✕</button><h3>اطلب الآن</h3><p class="pref" id="pref"></p>
 <input type="text" id="mN" placeholder="اسمك"><input type="tel" id="mP" placeholder="رقم الواتساب"><input type="text" id="mC" placeholder="المحافظة / العنوان"><textarea id="mT" rows="2" placeholder="أي تفاصيل إضافية..."></textarea>
 <button class="ms" onclick="send()">أرسلي الطلب عبر واتساب 💬</button></div></div>
 <footer>© 2025 Via Bag — Carry Your World · توصيل لجميع محافظات مصر
@@ -152,7 +152,7 @@ function render(indices){
     <div class="lbl" id="szl-${i}">المقاس</div><div class="sizes" id="sz-${i}"></div>
     <div class="lbl" id="dgl-${i}">اللون / التصميم</div><div class="designs" id="dg-${i}"></div>
     <div class="prow"><div class="pnow" id="pn-${i}"></div></div>
-    <div style="display:flex;gap:8px"><button class="btn" onclick="openMo(${i})" style="flex:1">اطلبي الآن</button><button class="btnc" onclick="addCart(${i})" title="أضيفي للسلة">🛒</button></div>
+    <div style="display:flex;gap:8px"><button class="btn" onclick="openMo(${i})" style="flex:1">اطلب الآن</button><button class="btnc" onclick="addCart(${i})" title="أضف للسلة">🛒</button></div>
    </div>`;
   g.appendChild(c); paint(i);
  });
@@ -202,7 +202,7 @@ function openMo(i){moI=i;const m=G[i],v=m.variants[st[i].s],d=(v.designs&&v.desi
 function closeMo(){document.getElementById('mo').classList.remove('open')}
 document.getElementById('mo').addEventListener('click',e=>{if(e.target.id==='mo')closeMo()});
 function addCart(i){const m=G[i],v=m.variants[st[i].s],d=(v.designs&&v.designs.length)?v.designs[st[i].d]:null;const parts=[];parts.push('الماركة: '+m.brand);if(v.size)parts.push('المقاس: '+v.size);if(d&&d.name)parts.push('اللون: '+d.name);const img=d?d.img:v.mains[0];vbAdd({code:v.code,name:m.model,variant:parts.join(' · '),price:v.before,img:ip(m.folder,img)});}
-function send(){const n=mN.value.trim(),p=mP.value.trim(),c=mC.value.trim(),t=mT.value.trim();if(!n||!p){alert('من فضلك أدخلي اسمك ورقم الواتساب');return}const ref=document.getElementById('pref').textContent;let msg=`مرحباً Via Bag 👜\n\nأريد الطلب التالي:\n📦 ${ref}\n👤 الاسم: ${n}\n📱 الواتساب: ${p}\n📍 المحافظة: ${c||'لم تحدد'}\n📝 ملاحظات: ${t||'لا يوجد'}`;const pr=window.vbGetPrize&&window.vbGetPrize();if(pr)msg+=`\n🎁 كوبون: ${pr.label} (${pr.code})`;window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');closeMo();}
+function send(){const n=mN.value.trim(),p=mP.value.trim(),c=mC.value.trim(),t=mT.value.trim();if(!n||!p){alert('من فضلك أدخل اسمك ورقم الواتساب');return}const ref=document.getElementById('pref').textContent;let msg=`مرحباً Via Bag 👜\n\nأريد الطلب التالي:\n📦 ${ref}\n👤 الاسم: ${n}\n📱 الواتساب: ${p}\n📍 المحافظة: ${c||'لم تحدد'}\n📝 ملاحظات: ${t||'لا يوجد'}`;const pr=window.vbGetPrize&&window.vbGetPrize();if(pr)msg+=`\n🎁 كوبون: ${pr.label} (${pr.code})`;window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');closeMo();}
 applyFilters();
 </script>
 <script src="cart.js"></script>

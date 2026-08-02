@@ -138,7 +138,7 @@ footer{background:var(--navy);padding:40px;text-align:center;color:rgba(255,255,
 <div class="modal-overlay" id="orderModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3>اطلبي الآن</h3>
+    <h3>اطلب الآن</h3>
     <p class="product-ref" id="modalRef"></p>
     <input type="text" id="mName" placeholder="اسمك">
     <input type="tel" id="mPhone" placeholder="رقم الواتساب">
@@ -180,7 +180,7 @@ function render(list){
         <div class="color-swatches">${sw}</div>
         <div class="swatch-label" id="clabel-${p.id}">${p.colors.length?'اللون: '+p.colors[0].name:''}</div>
         <div class="price-row"><div class="price-after">${p.priceAfter} <span>ج</span></div>${before}</div>
-        <div style="display:flex;gap:8px"><button class="btn-order" onclick="openModal(${p.id})" style="flex:1">اطلبي الآن</button><button class="btn-cart" onclick="addCart(${p.id})" title="أضيفي للسلة">🛒</button></div>
+        <div style="display:flex;gap:8px"><button class="btn-order" onclick="openModal(${p.id})" style="flex:1">اطلب الآن</button><button class="btn-cart" onclick="addCart(${p.id})" title="أضف للسلة">🛒</button></div>
       </div>`;
     grid.appendChild(card);
   });
@@ -195,7 +195,7 @@ let modalProduct=null;
 function openModal(pid){modalProduct=pid;const p=PRODUCTS.find(x=>x.id===pid);const ci=state[pid].color;const cname=p.colors.length?p.colors[ci].name:'';document.getElementById('modalRef').textContent=`${p.name} (${p.code}) — ${p.priceAfter} ج${cname?' — '+cname:''}`;document.getElementById('orderModal').classList.add('open');}
 function closeModal(){document.getElementById('orderModal').classList.remove('open')}
 document.getElementById('orderModal').addEventListener('click',e=>{if(e.target.id==='orderModal')closeModal()});
-function sendOrder(){const name=document.getElementById('mName').value.trim();const phone=document.getElementById('mPhone').value.trim();const city=document.getElementById('mCity').value.trim();const note=document.getElementById('mNote').value.trim();if(!name||!phone){alert('من فضلك أدخلي اسمك ورقم الواتساب');return}const ref=document.getElementById('modalRef').textContent;const msg=`مرحباً ${WA_BRAND}\n\nأريد الطلب التالي:\n📦 ${ref}\n👤 الاسم: ${name}\n📱 الواتساب: ${phone}\n📍 المحافظة: ${city||'لم تحدد'}\n📝 ملاحظات: ${note||'لا يوجد'}`;window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');closeModal();}
+function sendOrder(){const name=document.getElementById('mName').value.trim();const phone=document.getElementById('mPhone').value.trim();const city=document.getElementById('mCity').value.trim();const note=document.getElementById('mNote').value.trim();if(!name||!phone){alert('من فضلك أدخل اسمك ورقم الواتساب');return}const ref=document.getElementById('modalRef').textContent;const msg=`مرحباً ${WA_BRAND}\n\nأريد الطلب التالي:\n📦 ${ref}\n👤 الاسم: ${name}\n📱 الواتساب: ${phone}\n📍 المحافظة: ${city||'لم تحدد'}\n📝 ملاحظات: ${note||'لا يوجد'}`;window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');closeModal();}
 function addCart(pid){
   const p=PRODUCTS.find(x=>x.id===pid);
   const ci=state[pid].color;
