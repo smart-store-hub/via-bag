@@ -46,15 +46,19 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(7,29,58,.45);bac
 .section-title h2{font-family:'Playfair Display',serif;font-size:32px;color:#fff;margin-bottom:8px}
 .section-title p{color:rgba(255,255,255,.6);font-size:15px}
 .cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.cat-card{background:var(--glass-bg);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-radius:24px;padding:36px 28px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:all .35s;border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;text-align:center;min-height:200px;justify-content:center}
+.cat-card{background:var(--glass-bg);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-radius:24px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:all .35s;border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);display:block}
 .cat-card.available:hover{transform:translateY(-8px);background:var(--glass-bg-hover);box-shadow:0 20px 46px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.14);border-color:var(--glass-border-strong)}
-.cat-card.available:hover .cat-arrow{opacity:1;transform:translateX(0)}
 .cat-card.soon{opacity:.55;cursor:default}
-.cat-emoji{font-size:48px;margin-bottom:16px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
-.cat-name{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:#fff}
-.soon-badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);color:rgba(255,255,255,.75);font-size:11px;font-weight:600;padding:4px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.2)}
-.cat-arrow{position:absolute;bottom:20px;color:var(--beige);font-size:22px;opacity:0;transform:translateX(8px);transition:all .3s}
-.cat-card.available::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:var(--beige);transition:height .35s}
+.cat-thumb{position:relative;width:100%;padding-top:133%;overflow:hidden;background:rgba(0,0,0,.2)}
+.cat-thumb img{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.cat-card.available:hover .cat-thumb img{transform:scale(1.07)}
+.cat-thumb::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(to top,rgba(7,29,58,.92) 0%,rgba(7,29,58,.35) 45%,rgba(7,29,58,.05) 75%)}
+.cat-info{position:absolute;bottom:0;right:0;left:0;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.cat-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#fff}
+.soon-badge{position:absolute;top:14px;left:14px;z-index:2;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);color:rgba(255,255,255,.85);font-size:11px;font-weight:600;padding:4px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.25)}
+.cat-arrow{color:var(--beige);font-size:20px;opacity:.75;transition:all .3s}
+.cat-card.available:hover .cat-arrow{opacity:1;transform:translateX(-5px)}
+.cat-card.available::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:var(--beige);transition:height .35s;z-index:2}
 .cat-card.available:hover::before{height:100%}
 footer{background:rgba(7,29,58,.5);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.08);padding:50px 40px;text-align:center;color:rgba(255,255,255,.5);font-size:14px}
 footer .wa{display:inline-block;margin-top:14px;background:rgba(37,211,102,.85);backdrop-filter:blur(10px);color:#fff;padding:12px 28px;border-radius:30px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(255,255,255,.2)}
@@ -72,24 +76,24 @@ footer .wa{display:inline-block;margin-top:14px;background:rgba(37,211,102,.85);
 <section class="cats-section">
   <div class="section-title"><h2>أقسامنا</h2><p>اكتشف القسم اللي يناسبك</p></div>
   <div class="cats-grid">
-    <a href="school.html" class="cat-card available" >
-      <div class="cat-emoji">🎒</div><div class="cat-name">شنط مدارس</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="laptop.html" class="cat-card available" >
-      <div class="cat-emoji">💻</div><div class="cat-name">شنط لاب توب</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="baby.html" class="cat-card available" >
-      <div class="cat-emoji">🍼</div><div class="cat-name">شنط بيبي</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="lady.html" class="cat-card available" >
-      <div class="cat-emoji">👜</div><div class="cat-name">شنط حريمي</div>
-      <div class="cat-arrow">→</div></a>
+    <a href="school.html" class="cat-card available">
+      <div class="cat-thumb"><img src="images/category-thumbs/school.jpg" alt="شنط مدارس" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط مدارس</div><div class="cat-arrow">→</div></div></a>
+    <a href="laptop.html" class="cat-card available">
+      <div class="cat-thumb"><img src="images/category-thumbs/laptop.jpg" alt="شنط لاب توب" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط لاب توب</div><div class="cat-arrow">→</div></div></a>
+    <a href="baby.html" class="cat-card available">
+      <div class="cat-thumb"><img src="images/category-thumbs/baby.jpg" alt="شنط بيبي" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط بيبي</div><div class="cat-arrow">→</div></div></a>
+    <a href="lady.html" class="cat-card available">
+      <div class="cat-thumb"><img src="images/category-thumbs/lady.jpg" alt="شنط حريمي" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط حريمي</div><div class="cat-arrow">→</div></div></a>
     <a href="luxury.html" class="cat-card available">
-      <div class="cat-emoji">✨</div><div class="cat-name">شنط فاخرة</div>
-      <div class="cat-arrow">→</div></a>
-    <a href="kids.html" class="cat-card available" >
-      <div class="cat-emoji">🧸</div><div class="cat-name">شنط أطفال</div>
-      <div class="cat-arrow">→</div></a>
+      <div class="cat-thumb"><img src="images/category-thumbs/luxury.jpg" alt="شنط فاخرة" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط فاخرة</div><div class="cat-arrow">→</div></div></a>
+    <a href="kids.html" class="cat-card available">
+      <div class="cat-thumb"><img src="images/category-thumbs/kids.jpg" alt="شنط أطفال" loading="lazy"></div>
+      <div class="cat-info"><div class="cat-name">شنط أطفال</div><div class="cat-arrow">→</div></div></a>
   </div>
 </section>
 <footer>© 2025 Via Bag — Carry Your World · توصيل لجميع محافظات مصر<br>
