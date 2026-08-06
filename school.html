@@ -45,7 +45,7 @@ nav img{height:46px}
 .sect-title{text-align:center;margin-bottom:44px}
 .sect-title h2{font-family:'Playfair Display',serif;font-size:29px;color:var(--navy);margin-bottom:8px}
 .sect-title p{color:var(--navy);font-size:27px;font-weight:700;font-family:'Playfair Display',serif}
-.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .bcard{background:var(--glass-bg);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-radius:22px;padding:34px 26px;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:all .35s;border:1px solid var(--glass-border);box-shadow:0 8px 26px rgba(7,29,58,.1);display:flex;flex-direction:column;align-items:center;text-align:center;min-height:270px;justify-content:center}
 .bcard:hover{transform:translateY(-8px);background:var(--glass-bg-hover);box-shadow:0 20px 42px rgba(7,29,58,.16);border-color:var(--glass-border-strong)}
 .bcard:hover .barrow{opacity:1;transform:translateX(0)}
@@ -60,7 +60,8 @@ nav img{height:46px}
 .avail{margin-top:40px;text-align:center;color:var(--mid);font-size:13px;background:var(--glass-bg);backdrop-filter:blur(14px);border-radius:14px;padding:16px;border:1px dashed rgba(188,171,149,.4)}
 footer{background:var(--navy);padding:44px 20px;text-align:center;color:rgba(255,255,255,.5);font-size:13px}
 footer .wa{display:inline-block;margin-top:12px;background:#25D366;color:#fff;padding:11px 26px;border-radius:28px;text-decoration:none;font-weight:600;font-size:14px}
-@media(max-width:768px){nav{padding:12px 20px}.hero{padding:105px 18px 46px}.wrap{padding:44px 18px 60px}.back-link{top:72px;right:12px}}
+@media(max-width:768px){nav{padding:12px 20px}.hero{padding:105px 18px 46px}.wrap{padding:44px 18px 60px}.back-link{top:72px;right:12px}.bgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.bgrid{grid-template-columns:1fr}}
 .footer-soc{margin-top:16px;display:flex;justify-content:center;gap:18px}.footer-soc a{color:rgba(255,255,255,.65);transition:.2s;display:inline-flex}.footer-soc a:hover{color:#bcab95}
 </style></head><body>
 <nav><img src="images/logo_light.png" alt="Via Bag"></nav>
@@ -73,9 +74,22 @@ footer .wa{display:inline-block;margin-top:12px;background:#25D366;color:#fff;pa
 <div class="wrap">
   <div class="sect-title"><p>أفضل الماركات المميزة</p></div>
   <div class="bgrid">
+    <a href="#" class="bcard" style="opacity:.62;cursor:default" onclick="event.preventDefault()">
+      <div class="blogo"><img src="images/brands/smiggle.jpg" alt="Smiggle"></div>
+      <div class="bname">Smiggle</div><div class="bdesc">إكسسوارات وشنط مبهجة للأطفال</div>
+      <span class="soon-badge">قريباً</span>
+      </a>
+    <a href="school_threem.html" class="bcard">
+      <div class="blogo"><img src="images/brands/threem.jpg" alt="Three M"></div>
+      <div class="bname">Three M</div><div class="bdesc">تصاميم مميزة وجودة عالية</div>
+      <div class="barrow">→</div></a>
     <a href="school_elegant.html" class="bcard">
       <div class="blogo"><img src="images/brands/elegant.jpg" alt="Elegant Bag"></div>
       <div class="bname">Elegant Bag</div><div class="bdesc">أناقة وجودة في كل تفصيلة</div>
+      <div class="barrow">→</div></a>
+    <a href="school_jasminestar.html" class="bcard">
+      <div class="blogo"><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);letter-spacing:.5px">Jasmine Star</div></div>
+      <div class="bname">Jasmine Star</div><div class="bdesc">شنط عملية بتصاميم متنوعة</div>
       <div class="barrow">→</div></a>
     <a href="school_chimola.html" class="bcard">
       <div class="blogo"><img src="images/brands/chimola.jpg" alt="Chimola Original"></div>
@@ -85,10 +99,11 @@ footer .wa{display:inline-block;margin-top:12px;background:#25D366;color:#fff;pa
       <div class="blogo"><img src="images/brands/glossybird.jpg" alt="Glossy Bird"></div>
       <div class="bname">Glossy Bird</div><div class="bdesc">جودة موثوقة من سنة 1958</div>
       <div class="barrow">→</div></a>
-    <a href="school_threem.html" class="bcard">
-      <div class="blogo"><img src="images/brands/threem.jpg" alt="Three M"></div>
-      <div class="bname">Three M</div><div class="bdesc">تصاميم مميزة وجودة عالية</div>
-      <div class="barrow">→</div></a>
+    <a href="#" class="bcard" style="opacity:.62;cursor:default" onclick="event.preventDefault()">
+      <div class="blogo"><div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);letter-spacing:.5px">Glossy Star</div></div>
+      <div class="bname">Glossy Star</div><div class="bdesc">جودة وتصميم يلفت الأنظار</div>
+      <span class="soon-badge">قريباً</span>
+      </a>
     <a href="school_momolly.html" class="bcard">
       <div class="blogo"><img src="images/brands/momolly.jpg" alt="Momolly"></div>
       <div class="bname">Momolly</div><div class="bdesc">أطقم كاملة وتصاميم محبوبة</div>
