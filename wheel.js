@@ -8,8 +8,8 @@
     { label: 'خصم 5%',                 code: 'VIA5',     color: '#0d2d5a' },
     { label: 'شحن مجاني',              code: 'FREESHIP', color: '#bcab95' },
     { label: 'خصم 100 جنيه',           code: 'VIA100',   color: '#071d3a' },
-    { label: 'خصم 10% ع القطعة التانية', code: 'SECOND10', color: '#9a845c' },
-    { label: 'خصم 7%',                 code: 'VIA7',     color: '#c0392b' },
+    { label: 'خصم 7% ع القطعة التانية', code: 'SECOND10', color: '#9a845c' },
+    { label: 'خصم 7% في طلبك القادم', code: 'VIA7',     color: '#c0392b' },
   ];
 
   function getPrize() {
